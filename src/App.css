@@ -1,0 +1,13 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100dvh; /* Dynamic viewport height */
+    width: 100vw;
+    overflow: hidden; /* Prevent unwanted scrolling */
+    background-color: black; /* Optional, for debugging gaps */
+}
+
+button {
+    cursor: pointer;
+}
+
