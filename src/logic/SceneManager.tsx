@@ -15,6 +15,9 @@ const SceneManager: React.FC = () => {
             {currentScene === 'scene2' && <SceneTwo />}
             {currentScene === 'scene3' && <SceneThree />}
         </div>
+        // <div className="h-full w-full">
+        //     <p>Hello</p>
+        // </div>
     );
 };
 

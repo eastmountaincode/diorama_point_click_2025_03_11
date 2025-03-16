@@ -4,12 +4,14 @@ import HUD from './HUD';
 
 const GameCanvas: React.FC = () => {
     return (
-        <div className="w-full h-full flex flex-col md:flex-row border-4 border-blue-500">
+        <div className="w-full h-full flex flex-col md:flex-row ">
 
-            <div className="flex-grow border-4 border-red-500">
+            <div className="flex-grow h-3/6 md:h-auto ">
                 <SceneManager />
             </div>
-            <HUD />
+            <div className=" h-2/6 md:h-auto">
+                <HUD />
+            </div>
 
         </div>
     );

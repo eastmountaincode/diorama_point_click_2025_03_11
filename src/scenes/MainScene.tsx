@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import Draggable, { DraggableData } from 'react-draggable';
 
 const MainScene: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const nodeRef = useRef<HTMLDivElement>(null);
 
-    const [positionPercent, setPositionPercent] = useState({ x: 52, y: 59 });
+    const [positionPercent, setPositionPercent] = useState({ x: 50, y: 50 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const [isMeasured, setIsMeasured] = useState(false);
 
@@ -19,43 +19,44 @@ const MainScene: React.FC = () => {
         }
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
-        const resizeObserver = new ResizeObserver(([entry]) => {
-            const { width, height } = entry.contentRect;
-            setContainerSize({ width, height });
-            if (!isMeasured && width && height) {
+        const measureSize = () => {
+            const { width, height } = container.getBoundingClientRect();
+            if (width && height) {
+                setContainerSize({ width, height });
                 setIsMeasured(true);
             }
-        });
+        };
 
+        measureSize();
+
+        const resizeObserver = new ResizeObserver(measureSize);
         resizeObserver.observe(container);
 
         return () => resizeObserver.disconnect();
-    }, [isMeasured]);
+    }, []);
 
     const calculatePixelPosition = () => {
+        if (!isMeasured || !nodeRef.current) return { x: 0, y: 0 };
         const { width, height } = containerSize;
-        const x = (positionPercent.x / 100) * width;
-        const y = (positionPercent.y / 100) * height;
-        return { x: x - (nodeRef.current?.offsetWidth || 0) / 2, y: y - (nodeRef.current?.offsetHeight || 0) / 2 };
+        const x = (positionPercent.x / 100) * width - nodeRef.current.offsetWidth / 2;
+        const y = (positionPercent.y / 100) * height - nodeRef.current.offsetHeight / 2;
+        return { x, y };
     };
 
     const pixelPosition = calculatePixelPosition();
 
     return (
-        <div className="h-full w-full flex items-center justify-center overflow-hidden border-4 border-green-500">
+        <div className="h-full w-full flex items-center justify-center overflow-hidden">
             <div
                 ref={containerRef}
-                className="relative"
-                style={{
-                    width: '100%',
-                    maxWidth: '1200px',
-                    aspectRatio: '16 / 9',
-                }}
+                className="relative w-full max-w-[1100px]"
+                style={{ aspectRatio: '12 / 9' }}
             >
+                {/* background */}
                 <img
                     src="assets/bg/computer_bg.png"
                     alt="Computer Background"
@@ -63,6 +64,7 @@ const MainScene: React.FC = () => {
                     draggable={false}
                 />
 
+                {/* figure */}
                 {isMeasured && (
                     <Draggable
                         nodeRef={nodeRef as React.RefObject<HTMLElement>}
@@ -72,10 +74,7 @@ const MainScene: React.FC = () => {
                     >
                         <div
                             ref={nodeRef}
-                            className="absolute cursor-pointer"
-                            style={{
-                                width: '5%',
-                            }}
+                            className="absolute cursor-pointer w-[5%]"
                         >
                             <img
                                 src="assets/figure_model.png"
