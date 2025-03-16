@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 import { currentSceneAtom } from '../atoms/gameState';
 
 const DebugBar: React.FC = () => {
-    const [currentScene, setCurrentScene] = useAtom(currentSceneAtom);
+    const [currentScene, _] = useAtom(currentSceneAtom);
     //const [cameraPos] = useAtom(cameraPositionAtom); // ✅ Get camera position
 
     return (
@@ -12,7 +12,7 @@ const DebugBar: React.FC = () => {
             <span>Scene: {currentScene}</span>
 
             {/* ✅ Scene Switch Buttons */}
-            <div className="flex gap-2">
+            {/* <div className="flex gap-2">
                 {['scene1', 'scene2', 'scene3'].map((scene) => (
                     <button 
                         key={scene} 
@@ -22,7 +22,7 @@ const DebugBar: React.FC = () => {
                         {scene}
                     </button>
                 ))}
-            </div>
+            </div> */}
 
             {/* ✅ Display Camera Position */}
             {/* <span>Camera: X={cameraPos.x.toFixed(2)}, Y={cameraPos.y.toFixed(2)}, Zoom={cameraPos.zoom.toFixed(2)}x</span> */}

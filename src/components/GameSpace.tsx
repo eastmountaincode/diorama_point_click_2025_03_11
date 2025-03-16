@@ -9,10 +9,10 @@ const GameSpace: React.FC = () => {
         <div className="w-full h-full flex flex-col bg-gray-400">
 
             {/* ✅ Header Section */}
-            <MarqueeHeader />
+            {/* <MarqueeHeader /> */}
 
             {/* ✅ Main Content Area */}
-            <main className="flex-1 w-full bg-gray-500 relative overflow-hidden">
+            <main className="flex-1 bg-gray-500 relative">
                 <GameCanvas />
             </main>
 
