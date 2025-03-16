@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
+import React, { useRef, useState, useLayoutEffect } from 'react';
 import Draggable, { DraggableData } from 'react-draggable';
 
 const MainScene: React.FC = () => {
