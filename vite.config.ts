@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: '/diorama_prototype_2025_03_02/',
+  base: '/diorama_point_click_2025_03_11/',
 })
